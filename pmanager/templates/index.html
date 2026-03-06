@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Password Manager - Home{% endblock %}
+
+{% block page_title %}My Password Manager{% endblock %}
+
+{% block content %}
+<h2>Site Listing</h2>
+<ul>
+    {% for results in results %}
+        <li><a href="{% url 'check_users' results.id %}">{{results.sitename}}</a></li>
+    {% empty %}
+        <li class="empty-message">No Sites Here Yet</li>
+    {% endfor %}
+</ul>
+
+<h2>Add New Site</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Site</button>
+</form>
+{% endblock %}
