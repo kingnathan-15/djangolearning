@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/reg.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2>{{ title }}</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {% block auth_form%}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.errors %}
+                        <div class="error">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% endblock %}
+            <button type="submit" class="auth-btn">
+                {{ button_text }}
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+            {% block auth_footer %}{% endblock %}
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
